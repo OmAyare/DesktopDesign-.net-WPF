@@ -59,7 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Details.xaml">
+    <Compile Include="ViewModels\DetailsViesModels.cs" />
+    <Page Include="Views\Details.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -71,7 +72,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Details.xaml.cs">
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Views\Details.xaml.cs">
       <DependentUpon>Details.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
@@ -80,6 +83,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DetailsModel.cs" />
+    <Compile Include="Models\DetailsServices.cs" />
+    <Compile Include="Models\LoginModels.cs" />
+    <Compile Include="Models\LoginServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -109,15 +116,6 @@
   <ItemGroup>
     <Resource Include="Images\Login-UI.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataManager\DataManager.csproj">
-      <Project>{c05c1a8a-e986-4d12-9920-dca8e2ea6732}</Project>
-      <Name>DataManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{4cb63a99-24a7-4423-9b9c-0648a8f9bf14}</Project>
-      <Name>Models</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

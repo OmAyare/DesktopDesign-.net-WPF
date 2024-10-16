@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopDesign.ViewModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
@@ -23,10 +24,20 @@ namespace DesktopDesign
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string connectionString = ConfigurationManager.ConnectionStrings["DBConnection"].ToString();
+        LoginViewModel loginViewModel;
         public MainWindow()
         {
             InitializeComponent();
+            loginViewModel = new LoginViewModel();
+            this.DataContext = loginViewModel;
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is LoginViewModel viewModel)
+            {
+                viewModel.CurrentEmployee.PassWord = ((PasswordBox)sender).Password;
+            }
         }
 
         private void TogglePasswordVisibility(object sender, RoutedEventArgs e)
@@ -46,32 +57,6 @@ namespace DesktopDesign
                 VisiblePasswordBox.Visibility = Visibility.Collapsed;
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            string username = txtUsername.Text;
-            string password = PasswordBox.Password;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                 string query = "SELECT COUNT(1) FROM Login WHERE UserName = @UserName AND Password = @Password";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@UserName", username);
-                command.Parameters.AddWithValue("@Password", password);
-                connection.Open();
-                int count = Convert.ToInt32(command.ExecuteScalar());
-
-                if (count == 1)
-                {
-                    Details details = new Details();
-                    details.Show();
-                    this.Close(); 
-                
-                }
-
-           }
-       }
     }
 }
 
